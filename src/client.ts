@@ -14,7 +14,7 @@ import { ConnectionOptions } from 'tls';
 /**
  * Promisified wrapper around {@see createClient}.
  */
-class Client extends EventEmitter {
+export class Client extends EventEmitter {
   private readonly ldapjs: _Client;
 
   constructor(options: ClientOptions) {
