@@ -1,5 +1,8 @@
 # @csquare/ldapjs-client
 
+[![GitHub license](https://img.shields.io/github/license/csquare-ai/ldapjs-client)](https://github.com/csquare-ai/ldapjs-client/blob/main/LICENSE)
+[![npm](https://img.shields.io/npm/v/@csquare/ldapjs-client)](https://www.npmjs.com/package/@csquare/ldapjs-client)
+
 Promisified version of the `ldapjs` package with additional typings.
 
 ## Acknowledgments
