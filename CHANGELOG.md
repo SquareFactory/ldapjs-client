@@ -1,6 +1,10 @@
 # Changelog
 
-## [Version 0.1.1 - Export `Client`](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.0)
+## [Version 0.1.2 - Optional Controls](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.2)
+
+- **feat**: controls arguments are now optional
+
+## [Version 0.1.1 - Export `Client`](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.1)
 
 - **feat**: export `Client` class
 

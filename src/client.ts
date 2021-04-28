@@ -1,11 +1,15 @@
 import { EventEmitter } from 'events';
 import {
+  CallBack,
   Change,
   Client as _Client,
   ClientOptions as _ClientOptions,
+  CompareCallback,
   Control,
   createClient as _createClient,
   Error,
+  ErrorCallback,
+  SearchCallBack,
   SearchCallbackResponse,
   SearchOptions,
 } from 'ldapjs';
@@ -28,53 +32,81 @@ export class Client extends EventEmitter {
 
   bind(dn: string, password: string, controls?: Control | Control[]) {
     return new Promise((resolve, reject) => {
-      this.ldapjs.bind(dn, password, controls, (error, result) => {
+      const cb: CallBack = (error, result) => {
         if (error) {
           reject(error);
         }
 
         resolve(result);
-      });
+      };
+
+      if (!controls) {
+        this.ldapjs.bind(dn, password, cb);
+      } else {
+        this.ldapjs.bind(dn, password, controls, cb);
+      }
     });
   }
 
   add(name: string, entry: Record<string, any>, controls?: Control | Control[]) {
     return new Promise<void>((resolve, reject) => {
-      this.ldapjs.add(name, entry, controls, (error) => {
-        !error ? resolve() : reject(error);
-      });
+      const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
+
+      if (!controls) {
+        this.ldapjs.add(name, entry, cb);
+      } else {
+        this.ldapjs.add(name, entry, controls, cb);
+      }
     });
   }
 
   compare(name: string, attr: string, value: string, controls?: Control | Control[]) {
     return new Promise<boolean>((resolve, reject) => {
-      this.ldapjs.compare(name, attr, value, controls, (error: Error | null, matched?: boolean) => {
+      const cb: CompareCallback = (error: Error | null, matched?: boolean) => {
         !error ? resolve(matched ?? false) : reject(error);
-      });
+      };
+
+      if (!controls) {
+        this.ldapjs.compare(name, attr, value, cb);
+      } else {
+        this.ldapjs.compare(name, attr, value, controls, cb);
+      }
     });
   }
 
   del(name: string, controls?: Control | Control[]) {
     return new Promise<void>((resolve, reject) => {
-      this.ldapjs.del(name, controls, (error) => {
-        !error ? resolve() : reject(error);
-      });
+      const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
+
+      if (controls) {
+        this.ldapjs.del(name, cb);
+      } else {
+        this.ldapjs.del(name, controls, cb);
+      }
     });
   }
 
   modify(name: string, change: Change | Change[], controls?: Control | Control[]) {
     return new Promise<void>((resolve, reject) => {
-      this.ldapjs.modify(name, change, controls, (error) => {
-        !error ? resolve() : reject(error);
-      });
+      const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
+
+      if (controls) {
+        this.ldapjs.modify(name, change, cb);
+      } else {
+        this.ldapjs.modify(name, change, controls, cb);
+      }
     });
   }
 
   modifyDN(name: string, newName: string, controls?: Control | Control[]) {
     return new Promise<void>((resolve, reject) => {
-      this.ldapjs.modifyDN(name, newName, controls, (error) => {
-        !error ? resolve() : reject(error);
-      });
+      const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
+
+      if (controls) {
+        this.ldapjs.modifyDN(name, newName, cb);
+      } else {
+        this.ldapjs.modifyDN(name, newName, controls, cb);
+      }
     });
   }
 
@@ -85,28 +117,25 @@ export class Client extends EventEmitter {
     _bypass?: boolean,
   ): Promise<SearchCallbackResponse> {
     return new Promise<SearchCallbackResponse>((resolve, reject) => {
-      this.ldapjs.search(
-        base,
-        options,
-        controls,
-        (error, result) => {
-          !error ? resolve(result) : reject(error);
-        },
-        _bypass ?? false,
-      );
+      const cb: SearchCallBack = (error, result) => (!error ? resolve(result) : reject(error));
+
+      if (!controls) {
+        this.ldapjs.search(base, options, cb, _bypass ?? false);
+      } else {
+        this.ldapjs.search(base, options, controls, cb, _bypass ?? false);
+      }
     });
   }
 
   starttls(options: Record<string, any>, controls?: Control | Control[], _bypass?: boolean): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.ldapjs.starttls(
-        options,
-        controls,
-        (error, result) => {
-          !error ? resolve(result) : reject(error);
-        },
-        _bypass ?? false,
-      );
+      const cb: CallBack = (error, result) => (!error ? resolve(result) : reject(error));
+
+      if (!controls) {
+        this.ldapjs.starttls(options, [], cb, _bypass ?? false); // @types/ldapjs are wrong here
+      } else {
+        this.ldapjs.starttls(options, controls, cb, _bypass ?? false);
+      }
     });
   }
 
