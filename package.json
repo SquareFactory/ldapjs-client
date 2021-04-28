@@ -24,7 +24,7 @@
   "repository": "github:csquare-ai/ldapjs-client",
   "scripts": {
     "clean": "rimraf dist",
-    "prepare": "husky install",
+    "prepare": "npx is-ci || husky install",
     "format": "prettier --write **/*.{ts,tsx,json,yaml,yml,md}",
     "format:check": "prettier --check **/*.{ts,tsx,yaml,yml,md}",
     "build": "run-p build:*",
