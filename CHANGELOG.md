@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 0.1.3 - Fix Optional Controls](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.3)
+
+- **fix(controls)**: skip controls for `modify` and `del`
+
 ## [Version 0.1.2 - Optional Controls](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.2)
 
 - **feat**: controls arguments are now optional

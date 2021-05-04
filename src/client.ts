@@ -78,7 +78,7 @@ export class Client extends EventEmitter {
     return new Promise<void>((resolve, reject) => {
       const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
 
-      if (controls) {
+      if (!controls) {
         this.ldapjs.del(name, cb);
       } else {
         this.ldapjs.del(name, controls, cb);
@@ -90,7 +90,7 @@ export class Client extends EventEmitter {
     return new Promise<void>((resolve, reject) => {
       const cb: ErrorCallback = (error) => (!error ? resolve() : reject(error));
 
-      if (controls) {
+      if (!controls) {
         this.ldapjs.modify(name, change, cb);
       } else {
         this.ldapjs.modify(name, change, controls, cb);
