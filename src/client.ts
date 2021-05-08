@@ -152,7 +152,7 @@ export class Client extends EventEmitter {
   }
 }
 
-interface ClientOptions extends _ClientOptions {
+export interface ClientOptions extends _ClientOptions {
   tlsOptions?: ConnectionOptions;
 }
 

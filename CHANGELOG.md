@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 0.1.4 - Export `ClientOptions` interface](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.4)
+
+- **feat**(types): export `ClientOptions` interface
+
 ## [Version 0.1.3 - Fix Optional Controls](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.3)
 
 - **fix(controls)**: skip controls for `modify` and `del`
