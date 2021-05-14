@@ -15,17 +15,89 @@ import {
 } from 'ldapjs';
 import { ConnectionOptions } from 'tls';
 
+// noinspection JSUnusedGlobalSymbols
+
 /**
  * Promisified wrapper around {@see createClient}.
  */
-export class Client extends EventEmitter {
+export class Client implements EventEmitter {
   private readonly ldapjs: _Client;
 
   constructor(options: ClientOptions) {
-    super();
     this.ldapjs = _createClient(options);
   }
 
+  // EventEmitter
+  addListener(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.addListener(event, listener);
+    return this;
+  }
+
+  on(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.on(event, listener);
+    return this;
+  }
+
+  once(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.once(event, listener);
+    return this;
+  }
+
+  removeListener(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.removeListener(event, listener);
+    return this;
+  }
+
+  off(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.off(event, listener);
+    return this;
+  }
+
+  removeAllListeners(event?: string | symbol): this {
+    this.ldapjs.removeAllListeners(event);
+    return this;
+  }
+
+  setMaxListeners(n: number): this {
+    this.ldapjs.setMaxListeners(n);
+    return this;
+  }
+
+  getMaxListeners(): number {
+    return this.ldapjs.getMaxListeners();
+  }
+
+  listeners(event: string | symbol): Function[] {
+    return this.ldapjs.listeners(event);
+  }
+
+  rawListeners(event: string | symbol): Function[] {
+    return this.ldapjs.rawListeners(event);
+  }
+
+  emit(event: string | symbol, ...args: any[]): boolean {
+    return this.ldapjs.emit(event, ...args);
+  }
+
+  listenerCount(event: string | symbol): number {
+    return this.ldapjs.listenerCount(event);
+  }
+
+  prependListener(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.prependListener(event, listener);
+    return this;
+  }
+
+  prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this {
+    this.ldapjs.prependListener(event, listener);
+    return this;
+  }
+
+  eventNames(): (string | symbol)[] {
+    return this.ldapjs.eventNames();
+  }
+
+  // ldapjs
   get connected() {
     return this.ldapjs.connected;
   }

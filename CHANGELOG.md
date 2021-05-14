@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 0.2.0 - Forward `EventEmitter` interface](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.2.0)
+
+- **feat**(events): forward `EventEmitter` interface to the underlying client
+
 ## [Version 0.1.4 - Export `ClientOptions` interface](https://github.com/csquare-ai/ldapjs-client/releases/tag/0.1.4)
 
 - **feat**(types): export `ClientOptions` interface

@@ -1,6 +1,6 @@
 {
   "name": "@csquare/ldapjs-client",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Promisified wrapper around the ldapjs client.",
   "keywords": [
     "ldap",
